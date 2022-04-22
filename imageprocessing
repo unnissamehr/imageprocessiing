@@ -1,0 +1,20 @@
+#install opencv
+pip install opencv-python
+#load data
+from google.colab import files
+uploaded=files.upload()
+#read image
+import cv2
+image=cv2.imread("flower1.jpg")
+#converting BGR image to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+#inverting image
+invert_img=cv2.bitwise_not(gray_image)
+#blurimage
+blur_img=cv2.GaussianBlur(invert_img, (111,111),0)
+#invert blur image
+invblur_img=cv2.bitwise_not(blur_img)
+#divide
+sketch_img=cv2.divide(gray_image,invblur_img, scale=256.0)
+#write image(output)
+cv2.imwrite('sketch2.jpg', sketch_img)
